@@ -1,21 +1,19 @@
-# Samuel Oluwatobi — Data Analytics Portfolio
+# Samuel Oluwatobi — Data Analytics & Data Science Portfolio
 
-A responsive static portfolio for Excel and Power BI analytics work.
+GitHub Pages-ready static portfolio featuring 15 Excel/Power BI analytics projects and two selected, portfolio-ready Data Science case studies.
 
-## Included
-- 15 analytics projects
-- Excel and Power BI filtering
-- Project search
-- Fullscreen dashboard viewer with previous/next navigation
-- Project case-study overlays
-- Responsive desktop, tablet and mobile layout
-- Social sharing metadata and preview image
-- LinkedIn, X, WhatsApp, GitHub and email contact links
-- CV download in the final Contact section only
+## Structure
+- `index.html` — portfolio page
+- `style.css` — responsive visual system
+- `script.js` — filtering, search, dashboard viewer and case-study interactions
+- `assets/` — profile, social preview, CV, analytics and selected Data Science visuals
 
-## Education shown on the website
-- B.Sc. Statistics — University of Ilorin — 2022 to July 2026
-- National Diploma in Statistics — Kwara State Polytechnic, Ilorin — 2019 to October 2021 — Upper Credit
+## Portfolio focus
+- Analytics & Business Intelligence
+- Excel and Power BI
+- DAX and dashboard design
+- Statistical modelling
+- Selected Data Science: Real Estate Property Value Prediction and Heart Disease Risk Prediction
 
 ## Deployment
-Upload the contents of this folder to the root of the GitHub Pages repository and use `main` / root as the Pages source.
+Keep `index.html`, `style.css`, `script.js` and `assets/` at the repository root when deploying to GitHub Pages.

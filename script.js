@@ -1,66 +1,141 @@
-const projectData = {
-  "01": {title:"Car Insurance Policy Dashboard", platform:"Excel", domain:"Insurance", img:"assets/excel/Excel Project 1.jpg", focus:"KPI reporting · policy analysis · customer demographics", description:"A dashboard for reviewing policy activity, customer characteristics and key insurance measures.", approach:"KPI reporting, segmentation and visual comparison."},
-  "02": {title:"Supply Chain Performance Dashboard", platform:"Excel", domain:"Supply Chain", img:"assets/excel/Excel Project 2b.jpg", focus:"Performance tracking · product analysis · carrier analysis", description:"An operational view of supply-chain performance, product activity and carrier information.", approach:"Performance comparison, trend review and interactive filtering."},
-  "03": {title:"Retail Sales Dashboard", platform:"Excel", domain:"Retail", img:"assets/excel/Excel Project 3.jpg", focus:"Revenue analysis · transactions · product performance", description:"A retail reporting view built around revenue, transactions, customers and product performance.", approach:"KPI summaries, product comparison and transaction analysis."},
-  "04": {title:"Marketing Performance & ROMI", platform:"Excel", domain:"Marketing", img:"assets/excel/Excel Project 4.jpg", focus:"ROMI · CAC · campaign performance", description:"A marketing performance dashboard linking spend with revenue and campaign-level measures.", approach:"Comparative KPI analysis and campaign performance review."},
-  "05": {title:"Investment Preference Engine", platform:"Excel", domain:"Finance", img:"assets/excel/Excel Project 5.jpg", focus:"Preference analysis · segmentation · respondent behaviour", description:"An analytical view of investment preferences and respondent behaviour.", approach:"Segmentation, frequency comparison and preference analysis."},
-  "06": {title:"Global Debt Dashboard", platform:"Power BI", domain:"Finance", img:"assets/powerbi/Power BI Project 1.jpg", focus:"Rankings · categories · geographic analysis", description:"A Power BI report for comparing global debt levels, categories and geographic distribution.", approach:"Ranking, category comparison and geographic analysis."},
-  "07": {title:"Health Insurance Coverage Dashboard", platform:"Power BI", domain:"Healthcare", img:"assets/powerbi/Power BI Project 2.jpg", focus:"Coverage analysis · demographic context · trend review", description:"A report focused on insurance coverage, public programmes, tax credits and uninsured rates.", approach:"KPI comparison, segmentation and trend analysis."},
-  "08": {title:"TATA Online Retail Dashboard", platform:"Power BI", domain:"E-Commerce", img:"assets/powerbi/Power BI Project 3.jpg", focus:"Revenue · orders · customer analysis", description:"An e-commerce performance view covering revenue, orders, customers, countries and products.", approach:"Revenue analysis, customer segmentation and product comparison."},
-  "09": {title:"U.S. International Flight Report", platform:"Power BI", domain:"Aviation", img:"assets/powerbi/Power BI Project 4.jpg", focus:"Flight activity · airports · passenger analysis", description:"A report examining flight activity, airports, passengers and flight categories.", approach:"Trend comparison, geographic review and category analysis."},
-  "10": {title:"Global Mental Health Analytics", platform:"Power BI", domain:"Healthcare", img:"assets/powerbi/Power BI Project 5 ~ Page 1.jpg", focus:"Four-page report · comparative analysis · demographic patterns", description:"A four-page analytical story covering an overview, disorders, gender and suicide/depression.", approach:"Multi-page report design, comparative analysis and demographic segmentation."},
-  "11": {title:"Airplane Crashes & Fatalities", platform:"Power BI", domain:"Aviation", img:"assets/powerbi/Power BI Project 6 ~ Page 1.jpg", focus:"Three-page report · risk analysis · geographic patterns", description:"A three-page report looking at crash patterns through geography, aircraft and military/commercial comparisons.", approach:"Risk-focused comparison, category analysis and geographic exploration."},
-  "12": {title:"Amazon Sales Dashboard", platform:"Power BI", domain:"E-Commerce", img:"assets/powerbi/Power BI Project 7.jpg", focus:"Product analysis · ratings · discounts", description:"A product-focused report covering categories, ratings, discounts and engagement measures.", approach:"Product comparison, ranking and category-level analysis."},
-  "13": {title:"Hotel Booking Performance", platform:"Power BI", domain:"Hospitality", img:"assets/powerbi/Power BI Project 8 ~ Page 1.jpg", focus:"Executive view · revenue · customer intelligence", description:"A three-page hospitality report moving from executive performance to revenue and customer intelligence.", approach:"Executive KPI reporting, revenue analysis and customer segmentation."},
-  "14": {title:"Women's Clothing E-Commerce", platform:"Power BI", domain:"Customer Analytics", img:"assets/powerbi/Power BI Project 9.jpg", focus:"Reviews · ratings · customer behaviour", description:"A customer analytics report examining reviews, ratings, recommendations and positive feedback.", approach:"Customer segmentation, review analysis and comparative scoring."},
-  "15": {title:"GHG Emissions Intensity", platform:"Power BI + DAX", domain:"Sustainability", img:"assets/powerbi/Power BI Project 10.jpg", focus:"DAX · benchmarks · rankings · dynamic narrative", description:"An advanced Power BI dashboard using DAX-driven KPI benchmarks, indicators, ranking logic and a responsive insight narrative.", approach:"Filter context, measures, benchmarks, indicators, Top N/Bottom N logic and dynamic narrative."}
-};
-const cards=[...document.querySelectorAll('.project-card')];
-const filters=[...document.querySelectorAll('.filter')];
-const search=document.getElementById('project-search');
-const count=document.getElementById('project-count');
-let activePlatform='all', activeDomain='all';
-function applyFilters(){
-  const term=(search?.value||'').trim().toLowerCase(); let shown=0;
-  cards.forEach(card=>{
-    const platformOk=activePlatform==='all'||card.dataset.platform===activePlatform;
-    const domainOk=activeDomain==='all'||card.dataset.domain===activeDomain;
-    const textOk=!term||card.dataset.title.includes(term);
-    const show=platformOk&&domainOk&&textOk; card.classList.toggle('hidden',!show); if(show)shown++;
-  });
-  count.textContent=`Showing ${shown} of ${cards.length} projects`;
-  document.getElementById('no-results').hidden=shown!==0;
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modal-img');
+const modalTitle = document.getElementById('modal-title');
+const modalCounter = document.getElementById('modal-counter');
+const modalPrev = document.getElementById('modal-prev');
+const modalNext = document.getElementById('modal-next');
+const cards = [...document.querySelectorAll('.project-card')];
+const portfolioButtons = [...document.querySelectorAll('.portfolio-filter')];
+const platformButtons = [...document.querySelectorAll('.platform-filter')];
+const domainButtons = [...document.querySelectorAll('.domain-filter')];
+const filterStatus = document.getElementById('filter-status');
+const searchInput = document.getElementById('project-search');
+
+let activePortfolio = 'all';
+let activeFocus = 'all';
+let activeDomain = 'all';
+let searchTerm = '';
+let modalIndex = 0;
+
+function visibleCards() { return cards.filter(card => !card.classList.contains('hidden')); }
+function setActive(buttons, value, attr) { buttons.forEach(b => b.classList.toggle('active', b.dataset[attr] === value)); }
+function titleCase(value) { return value.replace(/\b\w/g, c => c.toUpperCase()); }
+function resetFocusAndDomain() {
+  activeFocus = 'all'; activeDomain = 'all';
+  setActive(platformButtons, 'all', 'platformFilter');
+  setActive(domainButtons, 'all', 'domainFilter');
 }
-filters.forEach(btn=>btn.addEventListener('click',()=>{
-  const isPlatform=btn.dataset.filter!==undefined;
-  if(isPlatform){activePlatform=btn.dataset.filter; filters.filter(x=>x.dataset.filter!==undefined).forEach(x=>x.classList.remove('active'));}
-  else {activeDomain=btn.dataset.domain||'all'; filters.filter(x=>x.dataset.domain!==undefined).forEach(x=>x.classList.remove('active'));}
-  btn.classList.add('active'); applyFilters();
+function applyFilters() {
+  let count = 0;
+  cards.forEach(card => {
+    const portfolio = card.dataset.portfolio || 'analytics';
+    const method = card.dataset.method || card.dataset.platform || '';
+    const domain = card.dataset.domain || '';
+    const text = `${card.textContent} ${card.dataset.title || ''} ${method} ${domain}`.toLowerCase();
+    const portfolioMatch = activePortfolio === 'all' || portfolio === activePortfolio;
+    const focusMatch = activeFocus === 'all' || method === activeFocus;
+    const domainMatch = activeDomain === 'all' || domain === activeDomain;
+    const searchMatch = !searchTerm || text.includes(searchTerm);
+    const show = portfolioMatch && focusMatch && domainMatch && searchMatch;
+    card.classList.toggle('hidden', !show);
+    if (show) count++;
+  });
+  let description = activePortfolio === 'all' ? 'all work' : activePortfolio === 'analytics' ? 'analytics' : 'data science';
+  if (activeFocus !== 'all') description += ` · ${titleCase(activeFocus === 'power' ? 'Power BI' : activeFocus)}`;
+  if (activeDomain !== 'all') description += ` · ${titleCase(activeDomain)}`;
+  if (searchTerm) description += ` · “${searchTerm}”`;
+  filterStatus.textContent = `Showing ${count} project${count === 1 ? '' : 's'} — ${description}`;
+}
+
+portfolioButtons.forEach(button => button.addEventListener('click', () => {
+  activePortfolio = button.dataset.portfolioFilter;
+  setActive(portfolioButtons, activePortfolio, 'portfolioFilter');
+  if (activePortfolio === 'datascience') {
+    activeFocus = 'all'; activeDomain = 'all';
+    setActive(platformButtons, 'all', 'platformFilter');
+    setActive(domainButtons, 'all', 'domainFilter');
+  } else if (activePortfolio === 'analytics' || activePortfolio === 'all') {
+    activeDomain = 'all';
+    setActive(domainButtons, 'all', 'domainFilter');
+    if (activePortfolio === 'all') resetFocusAndDomain();
+  }
+  applyFilters();
 }));
-search?.addEventListener('input',applyFilters); applyFilters();
+platformButtons.forEach(button => button.addEventListener('click', () => {
+  activeFocus = button.dataset.platformFilter;
+  setActive(platformButtons, activeFocus, 'platformFilter');
+  if (activeFocus === 'regression' || activeFocus === 'classification') {
+    activePortfolio = 'datascience'; activeDomain = 'all';
+    setActive(portfolioButtons, 'datascience', 'portfolioFilter');
+    setActive(domainButtons, 'all', 'domainFilter');
+  } else if (activeFocus === 'excel' || activeFocus === 'power') {
+    activePortfolio = 'analytics'; activeDomain = 'all';
+    setActive(portfolioButtons, 'analytics', 'portfolioFilter');
+    setActive(domainButtons, 'all', 'domainFilter');
+  } else {
+    activePortfolio = 'all'; activeDomain = 'all';
+    setActive(portfolioButtons, 'all', 'portfolioFilter');
+    setActive(domainButtons, 'all', 'domainFilter');
+  }
+  applyFilters();
+}));
+domainButtons.forEach(button => button.addEventListener('click', () => {
+  activeDomain = button.dataset.domainFilter;
+  setActive(domainButtons, activeDomain, 'domainFilter');
+  applyFilters();
+}));
+if (searchInput) searchInput.addEventListener('input', () => { searchTerm = searchInput.value.trim().toLowerCase(); applyFilters(); });
 
-const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+function openDashboard(cardIndex) {
+  const currentCards = visibleCards(); if (!currentCards.length) return;
+  modalIndex = Math.max(0, Math.min(cardIndex, currentCards.length - 1));
+  const button = currentCards[modalIndex].querySelector('.image-btn');
+  modalImg.src = button.dataset.img; modalImg.alt = button.querySelector('img')?.alt || button.dataset.title;
+  modalTitle.textContent = button.dataset.title; modalCounter.textContent = `${modalIndex + 1} / ${currentCards.length}`;
+  modalPrev.disabled = currentCards.length < 2; modalNext.disabled = currentCards.length < 2;
+  modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+}
+function closeDashboard() { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+function moveDashboard(step) { const currentCards=visibleCards(); if(currentCards.length<2)return; modalIndex=(modalIndex+step+currentCards.length)%currentCards.length; openDashboard(modalIndex); }
+document.querySelectorAll('.image-btn').forEach(button => button.addEventListener('click', () => openDashboard(visibleCards().indexOf(button.closest('.project-card')))));
+document.querySelectorAll('.view-btn').forEach(button => button.addEventListener('click', () => openDashboard(visibleCards().indexOf(button.closest('.project-card')))));
+document.querySelector('.modal-close').addEventListener('click', closeDashboard);
+modalPrev.addEventListener('click',()=>moveDashboard(-1)); modalNext.addEventListener('click',()=>moveDashboard(1));
+modal.addEventListener('click',e=>{if(e.target===modal)closeDashboard();});
+
+const caseData = {
+ 'real-estate': {
+  kicker:'DATA SCIENCE · REGRESSION', title:'Real Estate Property Value Prediction', summary:'A predictive modelling study using the King County housing dataset to estimate residential sale price and examine variables associated with property value.', hero:'assets/datascience/real-estate-drivers.png',
+  badges:['OLS','Ridge','Lasso','R'],
+  sections:[
+   ['The Problem','Estimate residential sale price and compare baseline and regularised regression approaches without overstating the analysis as a direct ROI calculation.'],
+   ['The Data','The supplied dataset contains more than 21,000 property sales. Variables include living area, grade, condition, latitude/longitude, waterfront status, bedrooms, bathrooms and engineered house age.'],
+   ['Analytical Approach','House age and renovation indicators are engineered, while ID, date and ZIP code are excluded from the modelling matrix. OLS provides the baseline; Ridge and Lasso add regularisation for correlated predictors and feature selection.'],
+   ['Model Comparison','Reported results are close: Lasso has the highest reported adjusted R² (0.7109), OLS the lowest RMSE ($196,337), and Ridge the lowest MAE ($122,646). No single model is presented as an unconditional winner.'],
+   ['Key Insight','Latitude, waterfront status and construction quality are highlighted among variables associated with higher property values in the fitted model. These are model associations, not causal effects or direct ROI measures.'],
+   ['Limitations','The supplied analysis predicts sale price rather than realised investment return. A true ROI model would require investment cost, financing, holding period, cash-flow and exit-value assumptions.']
+  ]
+ },
+ 'heart-disease': {
+  kicker:'DATA SCIENCE · CLASSIFICATION', title:'Heart Disease Risk Prediction', summary:'A comparative predictive-modelling exercise using the UCI Cleveland Heart Disease dataset to distinguish observations with and without heart disease.', hero:'assets/datascience/heart-roc-comparison.png',
+  badges:['Logistic Regression','LDA','Naive Bayes','R'],
+  sections:[
+   ['The Problem','Compare three classification approaches on a public clinical dataset and examine how well they distinguish observations with and without heart disease. This is an academic predictive-modelling exercise, not a validated medical diagnostic system.'],
+   ['The Data','The Cleveland dataset contains clinical measurements including age, sex, chest-pain type, resting blood pressure, cholesterol, maximum heart rate, exercise-induced angina, ST depression, vessel count and thalassemia-related information.'],
+   ['Analytical Approach','Missing values are median-imputed, the multi-level target is converted to a binary outcome, categorical variables are dummy encoded, predictors are standardised, VIF is used as a multicollinearity diagnostic, and the data are split into training and test sets.'],
+   ['Model Comparison','The supplied run reports LDA with the strongest Accuracy (84.75%) and ROC-AUC (0.9491). LDA and Naive Bayes share the highest reported Recall (92.59%). These figures are retained from the supplied project version and should be regenerated after rerunning the corrected workflow.'],
+   ['Key Insight','The supplied Logistic Regression analysis identifies vessel count, resting blood pressure, sex and chest-pain categories as important predictors within this sample. These are fitted-model associations, not clinical causation.'],
+   ['Limitations','The sample is relatively small and comes from a specific clinical cohort. External validation, calibration, threshold analysis and clinical review would be required before any real-world medical application.']
+  ]
+ }
+};
+const caseModal=document.getElementById('case-modal'); const caseTitle=document.getElementById('case-title'); const caseSummary=document.getElementById('case-summary'); const caseHero=document.getElementById('case-hero-img'); const caseKicker=document.getElementById('case-kicker'); const caseBadges=document.getElementById('case-badges'); const caseBody=document.getElementById('case-body');
+function openCase(key){const d=caseData[key]; if(!d)return; caseKicker.textContent=d.kicker; caseTitle.textContent=d.title; caseSummary.textContent=d.summary; caseHero.src=d.hero; caseHero.alt=d.title; caseBadges.innerHTML=d.badges.map(x=>`<span>${x}</span>`).join(''); caseBody.innerHTML=d.sections.map((s,i)=>`<section class="case-section"><div class="case-num">${String(i+1).padStart(2,'0')}</div><div><h3>${s[0]}</h3><p>${s[1]}</p></div></section>`).join(''); caseModal.classList.add('open'); caseModal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';}
+function closeCase(){caseModal.classList.remove('open'); caseModal.setAttribute('aria-hidden','true'); document.body.style.overflow='';}
+document.querySelectorAll('.case-btn').forEach(b=>b.addEventListener('click',()=>openCase(b.dataset.case)));
+document.getElementById('case-close').addEventListener('click',closeCase); caseModal.addEventListener('click',e=>{if(e.target===caseModal)closeCase();});
+
+document.addEventListener('keydown',e=>{if(modal.classList.contains('open')){if(e.key==='Escape')closeDashboard(); if(e.key==='ArrowLeft')moveDashboard(-1); if(e.key==='ArrowRight')moveDashboard(1);} else if(caseModal.classList.contains('open')&&e.key==='Escape'){closeCase();}});
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-const modal=document.getElementById('modal'), modalImg=document.getElementById('modal-img'), modalTitle=document.getElementById('modal-title'), modalCount=document.getElementById('modal-count'), modalFocus=document.getElementById('modal-focus');
-let modalId=null;
-const visibleIds=()=>cards.filter(c=>!c.classList.contains('hidden')).map(c=>c.dataset.id);
-function openModal(id){const p=projectData[id];if(!p)return;modalId=id;modalImg.src=p.img;modalImg.alt=p.title;modalTitle.textContent=p.title;modalFocus.textContent=p.focus;const ids=visibleIds();modalCount.textContent=`${ids.indexOf(id)+1} / ${ids.length}`;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('locked')}
-function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('locked')}
-function moveModal(dir){const ids=visibleIds();const i=ids.indexOf(modalId);if(i<0)return;openModal(ids[(i+dir+ids.length)%ids.length])}
-document.querySelectorAll('.image-btn,.view-btn').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();openModal(b.dataset.id)}));
-document.querySelector('.modal-close').addEventListener('click',closeModal);document.querySelector('.modal-prev').addEventListener('click',()=>moveModal(-1));document.querySelector('.modal-next').addEventListener('click',()=>moveModal(1));modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
-
-document.querySelectorAll('.case-study-btn').forEach(b=>b.addEventListener('click',()=>openCaseStudy(b.dataset.id)));
-const caseModal=document.getElementById('case-modal');
-function openCaseStudy(id){const p=projectData[id];if(!p)return;document.getElementById('case-platform').textContent=p.platform;document.getElementById('case-title').textContent=p.title;document.getElementById('case-domain').textContent=p.domain;document.getElementById('case-focus').textContent=p.focus;document.getElementById('case-description').textContent=p.description;document.getElementById('case-approach').textContent=p.approach;document.getElementById('case-view').onclick=()=>{closeCaseStudy();openModal(id)};caseModal.classList.add('open');caseModal.setAttribute('aria-hidden','false');document.body.classList.add('locked')}
-function closeCaseStudy(){caseModal.classList.remove('open');caseModal.setAttribute('aria-hidden','true');document.body.classList.remove('locked')}
-document.querySelector('.case-close').addEventListener('click',closeCaseStudy);caseModal.addEventListener('click',e=>{if(e.target===caseModal)closeCaseStudy()});
-
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeCaseStudy()}if(modal.classList.contains('open')&&(e.key==='ArrowRight'||e.key==='ArrowLeft'))moveModal(e.key==='ArrowRight'?1:-1)});
-
-const menu=document.querySelector('.menu-toggle'), mobile=document.querySelector('.mobile-nav');
-menu?.addEventListener('click',()=>{const open=mobile.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));mobile.setAttribute('aria-hidden',String(!open))});
-mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobile.classList.remove('open');menu.setAttribute('aria-expanded','false');mobile.setAttribute('aria-hidden','true')}));
-
-const nav=document.querySelector('.nav');window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>20),{passive:true});
+applyFilters();
