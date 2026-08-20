@@ -20,11 +20,28 @@
 <body>
 <header class="nav">
   <a class="brand" href="#home">SO<span>.</span></a>
-  <nav>
+  <nav id="primary-nav">
     <a href="#work">Work</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#datascience">Data Science</a><a href="#contact">Contact</a>
   </nav>
-  <a class="nav-cta" href="#contact">Let's Connect</a>
+  <div class="nav-right">
+    <span class="status-pill" title="Currently open to analytics and data science opportunities"><span class="status-dot" aria-hidden="true"></span>Open to opportunities</span>
+    <a class="nav-cta" href="#contact">Let's Connect</a>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
+
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <span class="status-pill mobile-status"><span class="status-dot" aria-hidden="true"></span>Open to opportunities</span>
+  <a href="#work">Work</a>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#datascience">Data Science</a>
+  <a href="#contact">Contact</a>
+  <a class="mobile-cta btn primary" href="#contact">Let's Connect</a>
+</div>
+<div class="mobile-nav-backdrop" id="mobile-nav-backdrop"></div>
 
 <main>
 <section id="home" class="hero">
@@ -36,15 +53,21 @@
     <div class="hero-tags"><span>EXCEL</span><span>POWER BI</span><span>DAX</span><span>STATISTICAL MODELLING</span></div>
   </div>
   <div class="hero-visual reveal">
-    <div class="glow"></div>
-    <img class="hero-img back" src="assets/powerbi/Power BI Project 5 ~ Page 1.jpg" alt="">
-    <img class="hero-img front" src="assets/powerbi/Power BI Project 10.jpg" alt="GHG emissions dashboard">
+    <div class="glow glow-orb" aria-hidden="true"></div>
+    <img class="hero-img back" src="assets/powerbi/Power BI Project 5 ~ Page 1.jpg" alt="" loading="lazy" decoding="async">
+    <img class="hero-img front" src="assets/powerbi/Power BI Project 10.jpg" alt="GHG emissions dashboard" loading="eager" fetchpriority="high" decoding="async">
   </div>
 </section>
 
-<section class="stats reveal">
-  <div><strong>17</strong><span>Selected Projects</span></div><div><strong>5</strong><span>Excel</span></div>
-  <div><strong>10</strong><span>Power BI</span></div><div><strong>2</strong><span>Data Science</span></div>
+<section class="stats-section reveal">
+  <div class="stats-head"><p class="eyebrow">SNAPSHOT</p><h2>Professional snapshot</h2></div>
+  <div class="stats">
+    <div><strong>17</strong><span>Selected Projects</span></div>
+    <div><strong>5</strong><span>Excel Dashboards</span></div>
+    <div><strong>10</strong><span>Power BI Reports</span></div>
+    <div><strong>2</strong><span>Data Science Studies</span></div>
+    <div><strong>12</strong><span>Domains Covered</span></div>
+  </div>
 </section>
 
 <section id="work" class="section">
@@ -84,219 +107,315 @@
       <button class="filter domain-filter" data-domain-filter="real estate">Real Estate</button>
     </div>
   </div>
-  <div class="work-tools reveal"><label class="search-box"><span>⌕</span><input id="project-search" type="search" placeholder="Search projects, domains or methods…" autocomplete="off"></label><p class="filter-status" id="filter-status" aria-live="polite">Showing all 17 projects</p></div>
+  <div class="work-tools reveal">
+    <label class="search-box"><span>⌕</span><input id="project-search" type="search" placeholder="Search projects, domains or methods…" autocomplete="off"><kbd class="search-kbd">/</kbd></label>
+    <p class="filter-status" id="filter-status" aria-live="polite">Showing all 17 projects</p>
+  </div>
   <div class="grid">
+
       <article class="project-card reveal" data-portfolio="analytics" data-method="excel" data-platform="excel" data-domain="insurance" data-id="01">
         <button class="image-btn" data-img="assets/excel/Excel Project 1.jpg" data-title="Car Insurance Policy Dashboard" aria-label="Open Car Insurance Policy Dashboard fullscreen">
-          <img src="assets/excel/Excel Project 1.jpg" alt="Car Insurance Policy Dashboard dashboard screenshot" loading="lazy">
+          <img src="assets/excel/Excel Project 1.jpg" alt="Car Insurance Policy Dashboard dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Policy mix and demographics are broken down so underwriting and retention patterns are visible at a glance.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Excel</span><span>Insurance</span></div>
           <h3>Car Insurance Policy Dashboard</h3>
           <p>KPI reporting, policy analysis and customer demographics.</p>
-          <button class="view-btn" data-img="assets/excel/Excel Project 1.jpg" data-title="Car Insurance Policy Dashboard">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Excel</span><span>PivotTables</span><span>Slicers</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/excel/Excel Project 1.jpg" data-title="Car Insurance Policy Dashboard">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="01">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="excel" data-platform="excel" data-domain="supply chain" data-id="02">
         <button class="image-btn" data-img="assets/excel/Excel Project 2b.jpg" data-title="Supply Chain Performance Dashboard" aria-label="Open Supply Chain Performance Dashboard fullscreen">
-          <img src="assets/excel/Excel Project 2b.jpg" alt="Supply Chain Performance Dashboard dashboard screenshot" loading="lazy">
+          <img src="assets/excel/Excel Project 2b.jpg" alt="Supply Chain Performance Dashboard dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Carrier and product-level trends are surfaced through interactive filters to flag operational bottlenecks.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Excel</span><span>Supply Chain</span></div>
           <h3>Supply Chain Performance Dashboard</h3>
           <p>Supply-chain performance, product, carrier and trend analysis.</p>
-          <button class="view-btn" data-img="assets/excel/Excel Project 2b.jpg" data-title="Supply Chain Performance Dashboard">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Excel</span><span>PivotCharts</span><span>Conditional Formatting</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/excel/Excel Project 2b.jpg" data-title="Supply Chain Performance Dashboard">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="02">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="excel" data-platform="excel" data-domain="retail" data-id="03">
         <button class="image-btn" data-img="assets/excel/Excel Project 3.jpg" data-title="Retail Sales Dashboard" aria-label="Open Retail Sales Dashboard fullscreen">
-          <img src="assets/excel/Excel Project 3.jpg" alt="Retail Sales Dashboard dashboard screenshot" loading="lazy">
+          <img src="assets/excel/Excel Project 3.jpg" alt="Retail Sales Dashboard dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Revenue and basket behaviour are linked to product performance to highlight where sales are concentrated.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Excel</span><span>Retail</span></div>
           <h3>Retail Sales Dashboard</h3>
           <p>Revenue, transactions, customer behaviour and product performance.</p>
-          <button class="view-btn" data-img="assets/excel/Excel Project 3.jpg" data-title="Retail Sales Dashboard">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Excel</span><span>PivotTables</span><span>KPI Cards</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/excel/Excel Project 3.jpg" data-title="Retail Sales Dashboard">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="03">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="excel" data-platform="excel" data-domain="marketing" data-id="04">
         <button class="image-btn" data-img="assets/excel/Excel Project 4.jpg" data-title="Marketing Performance & ROMI" aria-label="Open Marketing Performance & ROMI fullscreen">
-          <img src="assets/excel/Excel Project 4.jpg" alt="Marketing Performance & ROMI dashboard screenshot" loading="lazy">
+          <img src="assets/excel/Excel Project 4.jpg" alt="Marketing Performance & ROMI dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>ROMI and CAC are tracked alongside spend so campaign efficiency is easy to compare across channels.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Excel</span><span>Marketing</span></div>
           <h3>Marketing Performance & ROMI</h3>
           <p>Revenue, marketing spend, ROMI, CAC and campaign performance.</p>
-          <button class="view-btn" data-img="assets/excel/Excel Project 4.jpg" data-title="Marketing Performance & ROMI">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Excel</span><span>KPI Cards</span><span>What-If Analysis</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/excel/Excel Project 4.jpg" data-title="Marketing Performance & ROMI">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="04">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="excel" data-platform="excel" data-domain="finance" data-id="05">
         <button class="image-btn" data-img="assets/excel/Excel Project 5.jpg" data-title="Investment Preference Engine" aria-label="Open Investment Preference Engine fullscreen">
-          <img src="assets/excel/Excel Project 5.jpg" alt="Investment Preference Engine dashboard screenshot" loading="lazy">
+          <img src="assets/excel/Excel Project 5.jpg" alt="Investment Preference Engine dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Respondent behaviour is segmented to show which investment products different groups actually prefer.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Excel</span><span>Finance</span></div>
           <h3>Investment Preference Engine</h3>
           <p>Investment adoption, preferences and respondent behaviour.</p>
-          <button class="view-btn" data-img="assets/excel/Excel Project 5.jpg" data-title="Investment Preference Engine">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Excel</span><span>PivotTables</span><span>Segmentation</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/excel/Excel Project 5.jpg" data-title="Investment Preference Engine">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="05">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="power" data-platform="power" data-domain="finance" data-id="06">
         <button class="image-btn" data-img="assets/powerbi/Power BI Project 1.jpg" data-title="Global Debt Dashboard" aria-label="Open Global Debt Dashboard fullscreen">
-          <img src="assets/powerbi/Power BI Project 1.jpg" alt="Global Debt Dashboard dashboard screenshot" loading="lazy">
+          <img src="assets/powerbi/Power BI Project 1.jpg" alt="Global Debt Dashboard dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Debt levels are ranked and mapped geographically to make cross-country comparison immediate.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Power BI</span><span>Finance</span></div>
           <h3>Global Debt Dashboard</h3>
           <p>Global debt levels, categories, rankings and geographic distribution.</p>
-          <button class="view-btn" data-img="assets/powerbi/Power BI Project 1.jpg" data-title="Global Debt Dashboard">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Power BI</span><span>DAX</span><span>Map Visuals</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/powerbi/Power BI Project 1.jpg" data-title="Global Debt Dashboard">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="06">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="power" data-platform="power" data-domain="healthcare" data-id="07">
         <button class="image-btn" data-img="assets/powerbi/Power BI Project 2.jpg" data-title="Health Insurance Coverage Dashboard" aria-label="Open Health Insurance Coverage Dashboard fullscreen">
-          <img src="assets/powerbi/Power BI Project 2.jpg" alt="Health Insurance Coverage Dashboard dashboard screenshot" loading="lazy">
+          <img src="assets/powerbi/Power BI Project 2.jpg" alt="Health Insurance Coverage Dashboard dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Coverage gaps across Medicaid, Medicare and tax-credit groups are broken out to flag the uninsured.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Power BI</span><span>Healthcare</span></div>
           <h3>Health Insurance Coverage Dashboard</h3>
           <p>Insurance coverage, Medicaid/Medicare, tax credits and uninsured rates.</p>
-          <button class="view-btn" data-img="assets/powerbi/Power BI Project 2.jpg" data-title="Health Insurance Coverage Dashboard">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Power BI</span><span>DAX</span><span>Power Query</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/powerbi/Power BI Project 2.jpg" data-title="Health Insurance Coverage Dashboard">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="07">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="power" data-platform="power" data-domain="e-commerce" data-id="08">
         <button class="image-btn" data-img="assets/powerbi/Power BI Project 3.jpg" data-title="TATA Online Retail Dashboard" aria-label="Open TATA Online Retail Dashboard fullscreen">
-          <img src="assets/powerbi/Power BI Project 3.jpg" alt="TATA Online Retail Dashboard dashboard screenshot" loading="lazy">
+          <img src="assets/powerbi/Power BI Project 3.jpg" alt="TATA Online Retail Dashboard dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Orders and customer geography are cross-cut with product performance to spot top revenue drivers.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Power BI</span><span>E-Commerce</span></div>
           <h3>TATA Online Retail Dashboard</h3>
           <p>Revenue, orders, customers, countries and product performance.</p>
-          <button class="view-btn" data-img="assets/powerbi/Power BI Project 3.jpg" data-title="TATA Online Retail Dashboard">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Power BI</span><span>DAX</span><span>Drillthrough</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/powerbi/Power BI Project 3.jpg" data-title="TATA Online Retail Dashboard">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="08">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="power" data-platform="power" data-domain="aviation" data-id="09">
         <button class="image-btn" data-img="assets/powerbi/Power BI Project 4.jpg" data-title="U.S. International Flight Report" aria-label="Open U.S. International Flight Report fullscreen">
-          <img src="assets/powerbi/Power BI Project 4.jpg" alt="U.S. International Flight Report dashboard screenshot" loading="lazy">
+          <img src="assets/powerbi/Power BI Project 4.jpg" alt="U.S. International Flight Report dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Scheduled versus chartered flight activity is compared across airports to reveal traffic patterns.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Power BI</span><span>Aviation</span></div>
           <h3>U.S. International Flight Report</h3>
           <p>Flight activity, airports, passengers and scheduled versus chartered flights.</p>
-          <button class="view-btn" data-img="assets/powerbi/Power BI Project 4.jpg" data-title="U.S. International Flight Report">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Power BI</span><span>DAX</span><span>Bookmarks</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/powerbi/Power BI Project 4.jpg" data-title="U.S. International Flight Report">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="09">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="power" data-platform="power" data-domain="healthcare" data-id="10">
         <button class="image-btn" data-img="assets/powerbi/Power BI Project 5 ~ Page 1.jpg" data-title="Global Mental Health Analytics" aria-label="Open Global Mental Health Analytics fullscreen">
-          <img src="assets/powerbi/Power BI Project 5 ~ Page 1.jpg" alt="Global Mental Health Analytics dashboard screenshot" loading="lazy">
+          <img src="assets/powerbi/Power BI Project 5 ~ Page 1.jpg" alt="Global Mental Health Analytics dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>A four-page narrative moves from prevalence to gender splits to suicide/depression correlation.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Power BI</span><span>Healthcare</span></div>
           <h3>Global Mental Health Analytics</h3>
           <p>Four-page report covering overview, disorders, gender and suicide/depression.</p>
-          <button class="view-btn" data-img="assets/powerbi/Power BI Project 5 ~ Page 1.jpg" data-title="Global Mental Health Analytics">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Power BI</span><span>DAX</span><span>Multi-Page Report</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/powerbi/Power BI Project 5 ~ Page 1.jpg" data-title="Global Mental Health Analytics">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="10">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="power" data-platform="power" data-domain="aviation" data-id="11">
         <button class="image-btn" data-img="assets/powerbi/Power BI Project 6 ~ Page 1.jpg" data-title="Airplane Crashes & Fatalities" aria-label="Open Airplane Crashes & Fatalities fullscreen">
-          <img src="assets/powerbi/Power BI Project 6 ~ Page 1.jpg" alt="Airplane Crashes & Fatalities dashboard screenshot" loading="lazy">
+          <img src="assets/powerbi/Power BI Project 6 ~ Page 1.jpg" alt="Airplane Crashes & Fatalities dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Three pages separate geography, aircraft type and military/commercial split to frame risk patterns.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Power BI</span><span>Aviation</span></div>
           <h3>Airplane Crashes & Fatalities</h3>
           <p>Three-page risk analysis covering geography, aircraft and military/commercial patterns.</p>
-          <button class="view-btn" data-img="assets/powerbi/Power BI Project 6 ~ Page 1.jpg" data-title="Airplane Crashes & Fatalities">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Power BI</span><span>DAX</span><span>Multi-Page Report</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/powerbi/Power BI Project 6 ~ Page 1.jpg" data-title="Airplane Crashes & Fatalities">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="11">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="power" data-platform="power" data-domain="e-commerce" data-id="12">
         <button class="image-btn" data-img="assets/powerbi/Power BI Project 7.jpg" data-title="Amazon Sales Dashboard" aria-label="Open Amazon Sales Dashboard fullscreen">
-          <img src="assets/powerbi/Power BI Project 7.jpg" alt="Amazon Sales Dashboard dashboard screenshot" loading="lazy">
+          <img src="assets/powerbi/Power BI Project 7.jpg" alt="Amazon Sales Dashboard dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Ratings and discount levels are set against category performance to see what actually drives engagement.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Power BI</span><span>E-Commerce</span></div>
           <h3>Amazon Sales Dashboard</h3>
           <p>Products, ratings, discounts, categories and engagement.</p>
-          <button class="view-btn" data-img="assets/powerbi/Power BI Project 7.jpg" data-title="Amazon Sales Dashboard">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Power BI</span><span>DAX</span><span>Power Query</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/powerbi/Power BI Project 7.jpg" data-title="Amazon Sales Dashboard">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="12">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="power" data-platform="power" data-domain="hospitality" data-id="13">
         <button class="image-btn" data-img="assets/powerbi/Power BI Project 8 ~ Page 1.jpg" data-title="Hotel Booking Performance" aria-label="Open Hotel Booking Performance fullscreen">
-          <img src="assets/powerbi/Power BI Project 8 ~ Page 1.jpg" alt="Hotel Booking Performance dashboard screenshot" loading="lazy">
+          <img src="assets/powerbi/Power BI Project 8 ~ Page 1.jpg" alt="Hotel Booking Performance dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Executive, revenue and customer views are split across three pages for a fuller booking picture.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Power BI</span><span>Hospitality</span></div>
           <h3>Hotel Booking Performance</h3>
           <p>Executive performance, revenue and customer intelligence across three pages.</p>
-          <button class="view-btn" data-img="assets/powerbi/Power BI Project 8 ~ Page 1.jpg" data-title="Hotel Booking Performance">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Power BI</span><span>DAX</span><span>Multi-Page Report</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/powerbi/Power BI Project 8 ~ Page 1.jpg" data-title="Hotel Booking Performance">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="13">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="power" data-platform="power" data-domain="customer analytics" data-id="14">
         <button class="image-btn" data-img="assets/powerbi/Power BI Project 9.jpg" data-title="Women's Clothing E-Commerce" aria-label="Open Women's Clothing E-Commerce fullscreen">
-          <img src="assets/powerbi/Power BI Project 9.jpg" alt="Women's Clothing E-Commerce dashboard screenshot" loading="lazy">
+          <img src="assets/powerbi/Power BI Project 9.jpg" alt="Women's Clothing E-Commerce dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Review sentiment and recommendation rates are tied to customer age bands to guide product decisions.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Power BI</span><span>Customer Analytics</span></div>
           <h3>Women's Clothing E-Commerce</h3>
           <p>Reviews, ratings, recommendations, positive feedback and customer age.</p>
-          <button class="view-btn" data-img="assets/powerbi/Power BI Project 9.jpg" data-title="Women's Clothing E-Commerce">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Power BI</span><span>DAX</span><span>Sentiment Breakdown</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/powerbi/Power BI Project 9.jpg" data-title="Women's Clothing E-Commerce">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="14">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card reveal" data-portfolio="analytics" data-method="power" data-platform="power" data-domain="sustainability" data-id="15">
         <button class="image-btn" data-img="assets/powerbi/Power BI Project 10.jpg" data-title="GHG Emissions Intensity" aria-label="Open GHG Emissions Intensity fullscreen">
-          <img src="assets/powerbi/Power BI Project 10.jpg" alt="GHG Emissions Intensity dashboard screenshot" loading="lazy">
+          <img src="assets/powerbi/Power BI Project 10.jpg" alt="GHG Emissions Intensity dashboard screenshot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>DAX-driven Top N/Bottom N benchmarks turn raw emissions data into a dynamic, narrated summary.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Power BI + DAX</span><span>Sustainability</span></div>
           <h3>GHG Emissions Intensity</h3>
           <p>DAX-driven KPI benchmarks, indicators, Top N/Bottom N and dynamic insight.</p>
-          <button class="view-btn" data-img="assets/powerbi/Power BI Project 10.jpg" data-title="GHG Emissions Intensity">View Dashboard ↗</button>
+          <div class="tech-badges"><span>Power BI</span><span>DAX</span><span>Dynamic Insight Text</span></div>
+          <div class="card-actions">
+            <button class="view-btn" data-img="assets/powerbi/Power BI Project 10.jpg" data-title="GHG Emissions Intensity">View Dashboard ↗</button>
+            <button class="quick-btn" data-quick="15">Quick View</button>
+          </div>
         </div>
       </article>
 
       <article class="project-card ds-card reveal" data-portfolio="datascience" data-method="regression" data-platform="regression" data-domain="real estate" data-id="16" data-case="real-estate">
         <button class="image-btn" data-img="assets/datascience/real-estate-actual-vs-predicted.png" data-title="Real Estate Property Value Prediction" aria-label="Open Real Estate Property Value Prediction fullscreen">
-          <img src="assets/datascience/real-estate-actual-vs-predicted.png" alt="Real Estate Property Value Prediction actual versus predicted plot" loading="lazy">
+          <img src="assets/datascience/real-estate-actual-vs-predicted.png" alt="Real Estate Property Value Prediction actual versus predicted plot" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Lasso, Ridge and OLS are compared head-to-head to see which regularisation approach explains price best.</p></div>
+        </button>
+        <div class="card-body">
+          <div class="meta"><span>Data Science</span><span>Regression</span></div>
+          <h3>Real Estate Property Value Prediction</h3>
+          <p>Regularised regression compares OLS, Ridge and Lasso to estimate residential sale price.</p>
+          <div class="method-badges"><span>OLS</span><span>Ridge</span><span>Lasso</span></div>
+          <div class="card-actions">
+            <button class="case-btn" data-case="real-estate">Explore Case Study ↗</button>
+            <button class="quick-btn" data-quick="16">Quick View</button>
+          </div>
+        </div>
+      </article>
 
       <article class="project-card ds-card reveal" data-portfolio="datascience" data-method="classification" data-platform="classification" data-domain="healthcare" data-id="17" data-case="heart-disease">
         <button class="image-btn" data-img="assets/datascience/heart-roc-comparison.png" data-title="Heart Disease Risk Prediction" aria-label="Open Heart Disease Risk Prediction fullscreen">
-          <img src="assets/datascience/heart-roc-comparison.png" alt="Heart Disease Risk Prediction ROC comparison" loading="lazy">
+          <img src="assets/datascience/heart-roc-comparison.png" alt="Heart Disease Risk Prediction ROC comparison" loading="lazy" decoding="async">
           <span class="expand">⛶</span>
+          <div class="insight-overlay"><span class="insight-label">Key Insight</span><p>Logistic Regression, LDA and Naive Bayes are compared on accuracy, ROC-AUC and recall on clinical data.</p></div>
         </button>
         <div class="card-body">
           <div class="meta"><span>Data Science</span><span>Classification</span></div>
           <h3>Heart Disease Risk Prediction</h3>
           <p>Comparative classification using Logistic Regression, LDA and Naive Bayes on the UCI Cleveland dataset.</p>
           <div class="method-badges"><span>Logistic</span><span>LDA</span><span>Naive Bayes</span></div>
-          <button class="case-btn" data-case="heart-disease">Explore Case Study ↗</button>
+          <div class="card-actions">
+            <button class="case-btn" data-case="heart-disease">Explore Case Study ↗</button>
+            <button class="quick-btn" data-quick="17">Quick View</button>
+          </div>
         </div>
       </article>
 </div>
@@ -306,45 +425,58 @@
   <div class="section-head reveal"><div><p class="eyebrow">DATA SCIENCE</p><h2>From what happened to what the data can help predict.</h2></div><p>Two selected, portfolio-ready modelling projects extend the analytics work into regression and classification.</p></div>
   <div class="ds-feature-grid">
     <article class="ds-feature reveal">
-      <div class="ds-feature-visual"><img src="assets/datascience/real-estate-drivers.png" alt="Real estate model drivers"></div>
+      <div class="ds-feature-visual"><img src="assets/datascience/real-estate-drivers.png" alt="Real estate model drivers" loading="lazy" decoding="async"></div>
       <div class="ds-feature-copy"><span class="ds-kicker">FEATURED · REGRESSION</span><h3>Real Estate Property Value Prediction</h3><p>Regularised regression compares OLS, Ridge and Lasso to estimate residential sale price and examine variables associated with property value.</p><div class="method-badges"><span>OLS</span><span>Ridge</span><span>Lasso</span><span>R</span></div><button class="case-btn light-case" data-case="real-estate">Explore Case Study ↗</button></div>
     </article>
     <article class="ds-feature ds-feature-alt reveal">
-      <div class="ds-feature-visual"><img src="assets/datascience/heart-roc-comparison.png" alt="Heart disease model ROC comparison"></div>
+      <div class="ds-feature-visual"><img src="assets/datascience/heart-roc-comparison.png" alt="Heart disease model ROC comparison" loading="lazy" decoding="async"></div>
       <div class="ds-feature-copy"><span class="ds-kicker">CLASSIFICATION · HEALTHCARE</span><h3>Heart Disease Risk Prediction</h3><p>A comparative predictive-modelling exercise using Logistic Regression, LDA and Naive Bayes on a public clinical dataset.</p><div class="method-badges"><span>Logistic Regression</span><span>LDA</span><span>Naive Bayes</span><span>R</span></div><button class="case-btn light-case" data-case="heart-disease">Explore Case Study ↗</button></div>
     </article>
   </div>
 </section>
 
-<section id="about" class="split section about-split">
- <div class="reveal about-photo-col">
-     <div class="avatar-glow"></div>
-     <img src="assets/profile/samuel-oluwatobi.jpg" alt="Portrait of Samuel Oluwatobi Lamidi" class="avatar-img">
-   </div>
-   <div class="about-role"><strong>Samuel Oluwatobi Lamidi</strong></p><span>Statistician · Data Scientist · ML</span></div>
- </div>
-   <div class="reveal">
-   <div><p class="eyebrow">ABOUT</p><h2>Analytical thinking with visual discipline.</h2></div>
- </div>
- <div class="reveal">
-   <p>I build interactive dashboards that turn structured data into clear performance views, useful comparisons and practical insights. My work spans business, finance, healthcare, retail, aviation, hospitality and sustainability.</p>
-   <p>I work across Excel and Power BI, with an emphasis on data preparation, KPI design, DAX logic, filtering, visual hierarchy and analytical storytelling. I also apply statistical modelling to selected predictive problems, using models as a way to answer a question rather than as an end in themselves.</p>
-   <div class="education">
-     <p class="eyebrow">EDUCATION</p>
-     <div class="education-item"><strong>B.Sc. Statistics</strong><span>University of Ilorin · 2022 – July 2026</span></div>
-     <div class="education-item"><strong>ND Statistics</strong><span>Kwara State Polytechnic · 2019 – October 2021</span></div>
-   </div>
- </div>
+<section id="about" class="section about-split">
+  <div class="reveal about-photo-col">
+    <div class="avatar-glow glow-orb" aria-hidden="true"></div>
+    <img src="assets/profile/samuel-oluwatobi.jpg" alt="Portrait of Samuel Oluwatobi" class="avatar-img" loading="lazy" decoding="async">
+    <p class="about-name">SAMUEL OLUWATOBI</p>
+    <span class="about-role">Statistician · Data Scientist · ML</span>
+  </div>
+  <div class="reveal about-copy">
+    <p class="eyebrow">ABOUT</p>
+    <h2>Analytical thinking with visual discipline.</h2>
+    <p>I build interactive dashboards that turn structured data into clear performance views, useful comparisons and practical insights. My work spans business, finance, healthcare, retail, aviation, hospitality and sustainability.</p>
+    <p>I work across Excel and Power BI, with an emphasis on data preparation, KPI design, DAX logic, filtering, visual hierarchy and analytical storytelling. I also apply statistical modelling to selected predictive problems, using models as a way to answer a question rather than as an end in themselves.</p>
+    <div class="education">
+      <p class="eyebrow">EDUCATION</p>
+      <div class="education-item"><strong>B.Sc. Statistics</strong><span>University of Ilorin · 2022 – July 2026</span></div>
+      <div class="education-item"><strong>ND Statistics</strong><span>Kwara State Polytechnic · 2019 – October 2021</span></div>
+    </div>
+  </div>
 </section>
 
 <section id="skills" class="section skills">
- <div class="section-head reveal"><div><p class="eyebrow">CAPABILITIES</p><h2>Tools & analytical skills</h2></div></div>
- <div class="skill-grid">
-  <div class="skill reveal"><span>01</span><h3>Excel</h3><p>Dashboard design · KPI cards · PivotTables · PivotCharts · Slicers · Conditional formatting</p></div>
-  <div class="skill reveal"><span>02</span><h3>Power BI</h3><p>Data modelling · DAX measures · Derived columns · Interactive reports · Dynamic titles · Top N / Bottom N</p></div>
-  <div class="skill reveal"><span>03</span><h3>Analytics</h3><p>Trend analysis · Ranking · Segmentation · KPI benchmarking · Comparative analysis · Data storytelling</p></div>
-  <div class="skill reveal"><span>04</span><h3>Statistical Modelling</h3><p>Regression · Classification · Model comparison · Feature interpretation · Predictive evaluation</p></div>
- </div>
+  <div class="section-head reveal"><div><p class="eyebrow">CAPABILITIES</p><h2>Tools & analytical skills</h2></div></div>
+  <div class="skills-simple reveal">
+    <div class="skills-chip-group">
+      <span class="skills-chip-label">Core Tools & Methods</span>
+      <div class="chip-row">
+        <span class="skill-chip">Excel</span><span class="skill-chip">Power BI</span><span class="skill-chip">DAX</span>
+        <span class="skill-chip">PivotTables & Slicers</span><span class="skill-chip">Power Query</span>
+        <span class="skill-chip">Trend & Segmentation Analysis</span><span class="skill-chip">KPI Design</span>
+        <span class="skill-chip">Regression</span><span class="skill-chip">Classification</span>
+        <span class="skill-chip">Data Storytelling</span>
+      </div>
+    </div>
+    <div class="skills-chip-group">
+      <span class="skills-chip-label">Certifications</span>
+      <div class="chip-row cert-row">
+        <!-- Add real certification badges here as they're earned, e.g.:
+        <span class="skill-chip cert-chip">Certification Name — Issuer, Year</span> -->
+        <span class="cert-placeholder">Certifications will be listed here as they're completed.</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="featured section">
@@ -371,9 +503,10 @@
 <footer><span>Samuel Oluwatobi</span><span>Data Analytics · Business Intelligence · Data Science</span></footer>
 
 <div class="case-modal" id="case-modal" aria-hidden="true">
- <div class="case-dialog" role="dialog" aria-modal="true" aria-labelledby="case-title">
+ <div class="case-dialog" role="dialog" aria-modal="true" aria-labelledby="case-title" id="case-dialog">
+  <div class="case-progress"><div class="case-progress-fill" id="case-progress-fill"></div></div>
   <button class="case-close" id="case-close" aria-label="Close case study">×</button>
-  <div class="case-hero"><div><p class="eyebrow" id="case-kicker">DATA SCIENCE</p><h2 id="case-title"></h2><p id="case-summary" class="case-summary"></p><div id="case-badges" class="method-badges"></div></div><div class="case-hero-image"><img id="case-hero-img" src="" alt=""></div></div>
+  <div class="case-hero"><div><p class="eyebrow" id="case-kicker">DATA SCIENCE</p><h2 id="case-title"></h2><p id="case-summary" class="case-summary"></p><div id="case-badges" class="method-badges"></div></div><div class="case-hero-image"><img id="case-hero-img" src="" alt="" loading="lazy" decoding="async"></div></div>
   <div class="case-body" id="case-body"></div>
  </div>
 </div>
@@ -381,9 +514,24 @@
 <div class="modal" id="modal" aria-hidden="true">
  <button class="modal-close" aria-label="Close">×</button>
  <button class="modal-nav modal-prev" id="modal-prev" aria-label="Previous project">‹</button>
- <div class="modal-inner"><img id="modal-img" src="" alt=""><p id="modal-title"></p><small id="modal-counter"></small></div>
+ <div class="modal-inner"><img id="modal-img" src="" alt="" loading="lazy" decoding="async"><p id="modal-title"></p><small id="modal-counter"></small></div>
  <button class="modal-nav modal-next" id="modal-next" aria-label="Next project">›</button>
 </div>
+
+<div class="quick-modal" id="quick-modal" aria-hidden="true">
+  <div class="quick-dialog" role="dialog" aria-modal="true" aria-labelledby="quick-title">
+    <button class="quick-close" id="quick-close" aria-label="Close quick view">×</button>
+    <div class="quick-image"><img id="quick-img" src="" alt="" loading="lazy" decoding="async"></div>
+    <div class="quick-content">
+      <div class="meta" id="quick-meta"></div>
+      <h3 id="quick-title"></h3>
+      <p id="quick-insight"></p>
+      <div class="tech-badges" id="quick-badges"></div>
+      <div class="quick-actions" id="quick-actions"></div>
+    </div>
+  </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
