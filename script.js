@@ -142,46 +142,55 @@ quickModal.addEventListener('click', e=>{ if(e.target===quickModal) closeQuickVi
 /* ===== Case study data (figures reused verbatim from the source write-ups) ===== */
 const caseData = {
  'real-estate': {
-  kicker:'DATA SCIENCE · REGRESSION', title:'Real Estate Property Value Prediction', summary:'A predictive modelling study using the King County housing dataset to estimate residential sale price and examine variables associated with property value.', hero:'assets/datascience/real-estate-drivers.png',
+  kicker:'DATA SCIENCE · REGRESSION', title:'Real Estate Property Value Prediction', summary:'A machine learning pipeline comparing OLS, Ridge and Lasso regression to estimate residential sale price and identify the strongest drivers of property value.', hero:'assets/datascience/real-estate-drivers.png',
   badges:['OLS','Ridge','Lasso','R'],
   sections:[
-   ['The Problem','Estimate residential sale price and compare baseline and regularised regression approaches without overstating the analysis as a direct ROI calculation.'],
-   ['The Data','The supplied dataset contains more than 21,000 property sales. Variables include living area, grade, condition, latitude/longitude, waterfront status, bedrooms, bathrooms and engineered house age.'],
-   ['Analytical Approach','House age and renovation indicators are engineered, while ID, date and ZIP code are excluded from the modelling matrix. OLS provides the baseline; Ridge and Lasso add regularisation for correlated predictors and feature selection.'],
-   ['Model Comparison','Reported results are close: Lasso has the highest reported adjusted R² (0.7109), OLS the lowest RMSE ($196,337), and Ridge the lowest MAE ($122,646). No single model is presented as an unconditional winner — use the panel below to compare the reported headline metric for each model.'],
-   ['Key Insight','Latitude, waterfront status and construction quality are highlighted among variables associated with higher property values in the fitted model. These are model associations, not causal effects or direct ROI measures.'],
-   ['Limitations','The supplied analysis predicts sale price rather than realised investment return. A true ROI model would require investment cost, financing, holding period, cash-flow and exit-value assumptions.']
+   ['The Problem','Estimate residential sale price and identify which property characteristics most influence value, comparing a baseline linear model against two regularised alternatives.'],
+   ['The Data','Property sales data including living area, grade, condition, latitude/longitude, waterfront status, bedrooms, bathrooms and construction year.'],
+   ['The Machine Learning Pipeline','Three algorithms were compared: OLS Linear as the standard statistical baseline; Ridge, using L₂ regularisation to handle high multicollinearity between features like bedrooms and bathrooms; and Lasso, using L₁ regularisation to perform automated feature selection and surface the most critical value drivers. Raw construction years were transformed into "House Age," with binary indicators engineered for renovation status.'],
+   ['Model Performance','Models were evaluated on RMSE (average dollar error) and adjusted R², to check accuracy without over-fitting from unnecessary complexity. Results were close across all three: Lasso posted the highest adjusted R² (0.7109) with RMSE $196,340 and MAE $123,694; OLS Linear posted RMSE $196,337 and MAE $123,900 with adjusted R² 0.7108; Ridge posted the lowest MAE ($122,646), RMSE $197,099 and adjusted R² 0.7101. Lasso was selected as the preferred model — while accuracy was comparable to OLS, its ability to mathematically simplify the model by penalising low-impact variables makes it the more robust tool for investment forecasting.'],
+   ['Investment Insights: The ROI Drivers','The Lasso model\u2019s standardised coefficients map out where location and scarcity outweigh sheer size: latitude had the highest positive impact (~$560k), highlighting specific high-value corridors; a waterfront view added an average of $557,562 to property value, the single largest physical feature driver; and construction grade and quality significantly outperformed total bedrooms in value contribution — adding bedrooms without increasing overall quality showed a negative coefficient (‑$33k), suggesting an "over-crowding" penalty in high-end markets.'],
+   ['Limitations','The model predicts sale price and value drivers, not a full investment-return calculation. A true ROI model would additionally require purchase cost, financing, holding period, cash-flow and exit-value assumptions.']
   ],
   comparison:{
-   metrics:['Adjusted R²','RMSE ($)','MAE ($)'],
-   best:{'Adjusted R²':'Lasso','RMSE ($)':'OLS','MAE ($)':'Ridge'},
-   data:{OLS:{'RMSE ($)':196337}, Ridge:{'MAE ($)':122646}, Lasso:{'Adjusted R²':0.7109}},
-   note:'Only the reported headline metric is available for each model in the supplied case write-up.'
+   metrics:['RMSE ($)','MAE ($)','Adjusted R²'],
+   best:{'RMSE ($)':'OLS Linear','MAE ($)':'Ridge Regression','Adjusted R²':'Lasso Regression'},
+   data:{
+     'Lasso Regression':{'RMSE ($)':196340,'MAE ($)':123694,'Adjusted R²':0.7109},
+     'OLS Linear':{'RMSE ($)':196337,'MAE ($)':123900,'Adjusted R²':0.7108},
+     'Ridge Regression':{'RMSE ($)':197099,'MAE ($)':122646,'Adjusted R²':0.7101}
+   },
+   note:'All three models perform within a narrow band of each other; Lasso is preferred for its built-in feature selection rather than a decisive accuracy gap.'
   },
   demonstrates:[
-   'Feature engineering from raw fields (house age, renovation indicators)',
-   'Regularisation trade-offs across OLS, Ridge and Lasso',
-   'Model evaluation using adjusted R², RMSE and MAE together, not a single number',
-   'Translating regression coefficients into plain-language, non-causal insight',
-   'Being explicit about what the model can and cannot claim (price vs. ROI)'
+   'Comparing a baseline (OLS) against L\u2082-regularised (Ridge) and L\u2081-regularised (Lasso) regression',
+   'Feature engineering from raw fields (House Age, renovation indicators)',
+   'Evaluating models on RMSE and adjusted R\u00b2 together to guard against over-fitting',
+   'Reading standardised coefficients as a map of investment drivers (location, scarcity, quality vs. quantity)',
+   'Being explicit about what the model can and cannot claim (value drivers vs. full ROI)'
   ]
  },
  'heart-disease': {
-  kicker:'DATA SCIENCE · CLASSIFICATION', title:'Heart Disease Risk Prediction', summary:'A comparative predictive-modelling exercise using the UCI Cleveland Heart Disease dataset to distinguish observations with and without heart disease.', hero:'assets/datascience/heart-roc-comparison.png',
+  kicker:'DATA SCIENCE · CLASSIFICATION', title:'Heart Disease Risk Prediction', summary:'A comparative classification pipeline using Logistic Regression, LDA and Naive Bayes on the UCI Cleveland Heart Disease dataset.', hero:'assets/datascience/heart-roc-comparison.png',
   badges:['Logistic Regression','LDA','Naive Bayes','R'],
   sections:[
-   ['The Problem','Compare three classification approaches on a public clinical dataset and examine how well they distinguish observations with and without heart disease. This is an academic predictive-modelling exercise, not a validated medical diagnostic system.'],
-   ['The Data','The Cleveland dataset contains clinical measurements including age, sex, chest-pain type, resting blood pressure, cholesterol, maximum heart rate, exercise-induced angina, ST depression, vessel count and thalassemia-related information.'],
-   ['Analytical Approach','Missing values are median-imputed, the multi-level target is converted to a binary outcome, categorical variables are dummy encoded, predictors are standardised, VIF is used as a multicollinearity diagnostic, and the data are split into training and test sets.'],
-   ['Model Comparison','The supplied run reports LDA with the strongest Accuracy (84.75%) and ROC-AUC (0.9491). LDA and Naive Bayes share the highest reported Recall (92.59%). These figures are retained from the supplied project version — use the panel below to compare models metric by metric.'],
-   ['Key Insight','The supplied Logistic Regression analysis identifies vessel count, resting blood pressure, sex and chest-pain categories as important predictors within this sample. These are fitted-model associations, not clinical causation.'],
-   ['Limitations','The sample is relatively small and comes from a specific clinical cohort. External validation, calibration, threshold analysis and clinical review would be required before any real-world medical application.']
+   ['The Problem','Compare three classification approaches on a public clinical dataset to distinguish patients with and without heart disease. This is an academic predictive-modelling exercise, not a validated medical diagnostic system.'],
+   ['The Data','The Cleveland dataset contains clinical measurements including age, sex, chest-pain type, resting blood pressure, cholesterol, maximum heart rate, exercise-induced angina, ST depression, major vessel count (ca) and thalassemia status (thal).'],
+   ['1. Data Cleaning & Transformation','Missing values in ca and thal were handled with median imputation to preserve a full clinical record. The original 0–4 severity scale was re-coded into a binary target: disease presence vs. absence. Categorical variables were converted with full-rank dummy encoding to avoid the "dummy variable trap" and keep the models stable.'],
+   ['2. Statistical Diagnostics','Z-score standardisation was applied to all numeric features so scale-sensitive models like LDA aren\u2019t biased by features with larger ranges (e.g. cholesterol vs. oldpeak). Multicollinearity was checked with VIF; all variables came in below 3.2, confirming a healthy, non-redundant feature set for the parametric models.'],
+   ['3. Model Comparison & Results','Metrics were calculated on an 80/20 train-test split. LDA led on Accuracy (84.75%), ROC-AUC (0.9491) and F1-Score (0.8475). Logistic Regression and Naive Bayes both landed at 79.66% accuracy; Naive Bayes matched LDA\u2019s top Recall of 92.59%, while Logistic Regression led neither metric outright but stayed competitive across the board.'],
+   ['Clinical Insights','The Logistic Regression model identified several statistically significant predictors (p < 0.05): major vessel count (ca) was the strongest predictor (p < 0.001) — more vessels coloured by fluoroscopy correlates significantly with disease presence; resting blood pressure showed a significant positive correlation with heart disease risk; male patients showed higher log-odds of heart disease than female patients in this clinical sample; and asymptomatic chest pain (cp.4) was a statistically significant indicator of underlying cardiovascular issues.'],
+   ['Limitations','The sample is relatively small and drawn from a specific clinical cohort. External validation, calibration, threshold analysis and clinical review would be required before any real-world medical application.']
   ],
   comparison:{
-   metrics:['Accuracy (%)','ROC-AUC','Recall (%)'],
-   best:{'Accuracy (%)':'LDA','ROC-AUC':'LDA','Recall (%)':'LDA'},
-   data:{LDA:{'Accuracy (%)':84.75,'ROC-AUC':0.9491,'Recall (%)':92.59}, 'Naive Bayes':{'Recall (%)':92.59}, Logistic:{}},
-   note:'Logistic Regression\u2019s headline accuracy/ROC-AUC/recall were not reported alongside LDA and Naive Bayes in the supplied case write-up.'
+   metrics:['Accuracy (%)','ROC-AUC','Precision (%)','Recall (%)','F1-Score'],
+   best:{'Accuracy (%)':'LDA','ROC-AUC':'LDA','Precision (%)':'LDA','Recall (%)':'LDA','F1-Score':'LDA'},
+   data:{
+     'LDA':{'Accuracy (%)':84.75,'ROC-AUC':0.9491,'Precision (%)':78.13,'Recall (%)':92.59,'F1-Score':0.8475},
+     'Logistic Regression':{'Accuracy (%)':79.66,'ROC-AUC':0.9167,'Precision (%)':72.73,'Recall (%)':88.89,'F1-Score':0.8000},
+     'Naive Bayes':{'Accuracy (%)':79.66,'ROC-AUC':0.9144,'Precision (%)':71.43,'Recall (%)':92.59,'F1-Score':0.8065}
+   },
+   note:'LDA leads on Accuracy, ROC-AUC and F1-Score; Naive Bayes matches LDA\u2019s top Recall (92.59%) despite lower overall accuracy.'
   },
   demonstrates:[
    'Data cleaning: median imputation of missing clinical values',
